@@ -16,8 +16,6 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 		log.Fatal(err)
 	}
 
-	log.Printf("done!!")
-
 	event, err := UnmarshalLineRequest([]byte(awsRequest.Body))
 	if err != nil {
 		log.Fatal(err)
