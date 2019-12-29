@@ -13,7 +13,7 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 	secret := "1aac82b5d4e864f29ab5008997bbb9be"
 	bot, err := linebot.New(secret, accessToken)
 	if err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
 	}
 
 	event, err := UnmarshalLineRequest([]byte(awsRequest.Body))
