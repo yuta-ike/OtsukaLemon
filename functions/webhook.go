@@ -33,5 +33,6 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 }
 
 func main() {
+	log.Printf("main func start")
 	lambda.Start(handler)
 }
