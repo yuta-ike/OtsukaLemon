@@ -30,7 +30,7 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 
 	for _, event := range event.Event {
 		replyToken := event.ReplyToken
-		bot.ReplyMessage(replyToken, linebot.NewTextMessage("hello")).Do()
+		_, _ = bot.ReplyMessage(replyToken, linebot.NewTextMessage("hello")).Do()
 	}
 
 	log.Printf("handler3")
