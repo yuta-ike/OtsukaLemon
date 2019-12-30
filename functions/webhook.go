@@ -12,26 +12,27 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 	accessToken := "52gP1+MnOGvHWEpjzixawGUIW1icZTs3ULhetUCjv6KIad4WZsrLw5whm2OJ62CmQkEIy3xnYXytBcK4jSR1chcZvuXGdWLxEcruW/ZZ5qYs/lGz3JUCbUKZmKnVQU6ecX97O4OXev+QrBbA9AFWkQdB04t89/1O/w1cDnyilFU="
 	secret := "1aac82b5d4e864f29ab5008997bbb9be"
 
-	log.Printf("handler0")
-
 	bot, err := linebot.New(secret, accessToken)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	log.Printf("handler1")
 
 	event, err := UnmarshalLineRequest([]byte(awsRequest.Body))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Printf("handler2")
-
 	for _, event := range event.Events {
 		replyToken := event.ReplyToken
-		log.Printf(replyToken)
-		if _, err = bot.ReplyMessage(replyToken, linebot.NewTextMessage("hello")).Do(); err != nil {
+
+		var message string
+		if event.Message.Type == "text" {
+			message = buildReplyMessage(event.Message.Text)
+		} else {
+			message = "テキストメッセージを送ってね"
+		}
+
+		if _, err = bot.ReplyMessage(replyToken, linebot.NewTextMessage(message)).Do(); err != nil {
 			log.Fatal(err)
 		}
 	}
