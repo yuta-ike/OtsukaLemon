@@ -12,7 +12,7 @@ func UnmarshalLineRequest(data []byte) (LineRequest, error) {
 
 type LineRequest struct {
 	Destination string
-	Event       []Event
+	Events      []Event
 }
 
 type Event struct {
