@@ -27,12 +27,15 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 
 		var message string
 		if event.Message.Type == "text" {
-			message = buildReply(event.Message.Text) + `\uDBC0\uDC39`
+			message = buildReply(event.Message.Text)
 		} else {
 			message = "テキストメッセージを送ってね"
 		}
 
 		if _, err = bot.ReplyMessage(replyToken, linebot.NewTextMessage(message)).Do(); err != nil {
+			log.Fatal(err)
+		}
+		if _, err = bot.ReplyMessage(replyToken, linebot.NewImageMessage("https://4.bp.blogspot.com/-ICHHirmVkJQ/Vq89AnGcG_I/AAAAAAAA3kA/iiDZGFKOEiE/s800/fruit_slice09_lemon.png", "https://4.bp.blogspot.com/-ICHHirmVkJQ/Vq89AnGcG_I/AAAAAAAA3kA/iiDZGFKOEiE/s800/fruit_slice09_lemon.png")).Do(); err != nil {
 			log.Fatal(err)
 		}
 	}
