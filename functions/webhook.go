@@ -27,7 +27,7 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 
 		var message string
 		if event.Message.Type == "text" {
-			message = buildReply(event.Message.Text)
+			message = buildReply(event.Message.Text) + `\uDBC0\uDC39`
 		} else {
 			message = "テキストメッセージを送ってね"
 		}
