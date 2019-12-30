@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -9,8 +10,8 @@ import (
 )
 
 func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
-	accessToken := "52gP1+MnOGvHWEpjzixawGUIW1icZTs3ULhetUCjv6KIad4WZsrLw5whm2OJ62CmQkEIy3xnYXytBcK4jSR1chcZvuXGdWLxEcruW/ZZ5qYs/lGz3JUCbUKZmKnVQU6ecX97O4OXev+QrBbA9AFWkQdB04t89/1O/w1cDnyilFU="
-	secret := "1aac82b5d4e864f29ab5008997bbb9be"
+	accessToken := os.Getenv("LINEBOT_ACCESS_TOKEN")
+	secret := os.Getenv("LINEBOT_CHANNEL_SECRET")
 
 	bot, err := linebot.New(secret, accessToken)
 	if err != nil {
