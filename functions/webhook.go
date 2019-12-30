@@ -27,8 +27,6 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 	}
 
 	log.Printf("handler2")
-	log.Print(event)
-	log.Print(len(event.Events))
 
 	for _, event := range event.Events {
 		replyToken := event.ReplyToken
