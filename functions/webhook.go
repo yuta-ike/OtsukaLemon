@@ -25,24 +25,10 @@ func handler(awsRequest events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 
 	for _, event := range event.Events {
 		replyToken := event.ReplyToken
-
-		var message string
-		if event.Message.Type == "text" {
-			message = buildReply(event.Message.Text)
-		} else {
-			message = "テキストメッセージを送ってね"
+		message := event.Message.Text
+		if _, err = bot.ReplyMessage(replyToken, linebot.NewTextMessage(message)).Do(); err != nil {
+			log.Fatal(err)
 		}
-
-		if message == "おつかれもん" {
-			if _, err = bot.ReplyMessage(replyToken, linebot.NewTextMessage(message), linebot.NewImageMessage("https://4.bp.blogspot.com/-ICHHirmVkJQ/Vq89AnGcG_I/AAAAAAAA3kA/iiDZGFKOEiE/s800/fruit_slice09_lemon.png", "https://4.bp.blogspot.com/-ICHHirmVkJQ/Vq89AnGcG_I/AAAAAAAA3kA/iiDZGFKOEiE/s800/fruit_slice09_lemon.png")).Do(); err != nil {
-				log.Fatal(err)
-			}
-		} else {
-			if _, err = bot.ReplyMessage(replyToken, linebot.NewTextMessage(message)).Do(); err != nil {
-				log.Fatal(err)
-			}
-		}
-
 	}
 
 	log.Printf("handler3")
